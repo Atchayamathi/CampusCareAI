@@ -37,10 +37,6 @@ def init_db():
     conn.close()
 
 
-# Initialize database when application starts
-init_db()
-
-
 # =========================================================
 # HOME
 # =========================================================
@@ -68,7 +64,11 @@ def analyze():
 
     text = problem.lower()
 
+
+    # =====================================================
     # SAFETY
+    # =====================================================
+
     if any(word in text for word in [
         "fire",
         "smoke",
@@ -82,7 +82,16 @@ def analyze():
         priority = "CRITICAL"
         department = "Safety & Maintenance"
 
+        solution = (
+            "Immediately inform the campus safety team and "
+            "avoid the affected area."
+        )
+
+
+    # =====================================================
     # WATER
+    # =====================================================
+
     elif any(word in text for word in [
         "water",
         "leak",
@@ -96,7 +105,16 @@ def analyze():
         priority = "HIGH"
         department = "Maintenance"
 
+        solution = (
+            "Maintenance team should inspect the pipe or tap "
+            "and repair the leakage."
+        )
+
+
+    # =====================================================
     # ELECTRICAL
+    # =====================================================
+
     elif any(word in text for word in [
         "fan",
         "light",
@@ -111,7 +129,16 @@ def analyze():
         priority = "MEDIUM"
         department = "Maintenance"
 
+        solution = (
+            "Maintenance team should inspect the electrical "
+            "equipment and repair or replace it."
+        )
+
+
+    # =====================================================
     # CLEANLINESS
+    # =====================================================
+
     elif any(word in text for word in [
         "toilet",
         "clean",
@@ -127,7 +154,16 @@ def analyze():
         priority = "LOW"
         department = "Housekeeping"
 
+        solution = (
+            "Housekeeping team should clean the affected area "
+            "and remove the waste."
+        )
+
+
+    # =====================================================
     # FURNITURE
+    # =====================================================
+
     elif any(word in text for word in [
         "chair",
         "desk",
@@ -142,14 +178,32 @@ def analyze():
         priority = "LOW"
         department = "Maintenance"
 
+        solution = (
+            "Maintenance team should inspect the damaged "
+            "furniture and repair or replace it."
+        )
+
+
+    # =====================================================
     # GENERAL
+    # =====================================================
+
     else:
 
         category = "General"
         priority = "MEDIUM"
         department = "Administration"
 
+        solution = (
+            "Administration should review the complaint "
+            "and take the appropriate action."
+        )
+
+
+    # =====================================================
     # SAVE REPORT
+    # =====================================================
+
     conn = get_db()
 
     cursor = conn.execute("""
@@ -177,6 +231,11 @@ def analyze():
     conn.commit()
     conn.close()
 
+
+    # =====================================================
+    # RESULT PAGE
+    # =====================================================
+
     return render_template(
         "result.html",
         report_id=report_id,
@@ -184,7 +243,8 @@ def analyze():
         location=location,
         category=category,
         priority=priority,
-        department=department
+        department=department,
+        solution=solution
     )
 
 
@@ -207,16 +267,19 @@ def login():
             ""
         ).strip()
 
+
         if username == "admin" and password == "admin123":
 
             session["admin_logged_in"] = True
 
             return redirect("/admin")
 
+
         return render_template(
             "login.html",
             error="Invalid username or password."
         )
+
 
     return render_template("login.html")
 
@@ -246,6 +309,7 @@ def admin():
     if not session.get("admin_logged_in"):
         return redirect("/login")
 
+
     search = request.args.get(
         "search",
         ""
@@ -261,7 +325,9 @@ def admin():
         "All"
     )
 
+
     conn = get_db()
+
 
     query = """
         SELECT *
@@ -271,7 +337,9 @@ def admin():
 
     params = []
 
+
     # SEARCH
+
     if search:
 
         query += """
@@ -292,7 +360,9 @@ def admin():
             value
         ])
 
+
     # STATUS FILTER
+
     if status != "All":
 
         query += """
@@ -301,7 +371,9 @@ def admin():
 
         params.append(status)
 
+
     # PRIORITY FILTER
+
     if priority != "All":
 
         query += """
@@ -310,14 +382,17 @@ def admin():
 
         params.append(priority)
 
+
     query += """
         ORDER BY id DESC
     """
+
 
     reports = conn.execute(
         query,
         params
     ).fetchall()
+
 
     # STATISTICS
 
@@ -326,11 +401,13 @@ def admin():
         FROM reports
     """).fetchone()[0]
 
+
     pending = conn.execute("""
         SELECT COUNT(*)
         FROM reports
         WHERE status = 'Pending'
     """).fetchone()[0]
+
 
     in_progress = conn.execute("""
         SELECT COUNT(*)
@@ -338,11 +415,13 @@ def admin():
         WHERE status = 'In Progress'
     """).fetchone()[0]
 
+
     resolved = conn.execute("""
         SELECT COUNT(*)
         FROM reports
         WHERE status = 'Resolved'
     """).fetchone()[0]
+
 
     critical_count = conn.execute("""
         SELECT COUNT(*)
@@ -350,11 +429,13 @@ def admin():
         WHERE priority = 'CRITICAL'
     """).fetchone()[0]
 
+
     high_count = conn.execute("""
         SELECT COUNT(*)
         FROM reports
         WHERE priority = 'HIGH'
     """).fetchone()[0]
+
 
     medium_count = conn.execute("""
         SELECT COUNT(*)
@@ -362,13 +443,16 @@ def admin():
         WHERE priority = 'MEDIUM'
     """).fetchone()[0]
 
+
     low_count = conn.execute("""
         SELECT COUNT(*)
         FROM reports
         WHERE priority = 'LOW'
     """).fetchone()[0]
 
+
     conn.close()
+
 
     return render_template(
         "admin.html",
@@ -400,7 +484,9 @@ def update_status(report_id):
     if not session.get("admin_logged_in"):
         return redirect("/login")
 
+
     new_status = request.form.get("status")
+
 
     valid_statuses = [
         "Pending",
@@ -408,10 +494,13 @@ def update_status(report_id):
         "Resolved"
     ]
 
+
     if new_status not in valid_statuses:
         return "Invalid status", 400
 
+
     conn = get_db()
+
 
     conn.execute("""
         UPDATE reports
@@ -422,8 +511,10 @@ def update_status(report_id):
         report_id
     ))
 
+
     conn.commit()
     conn.close()
+
 
     return redirect("/admin")
 
@@ -437,6 +528,7 @@ def report_details(report_id):
 
     conn = get_db()
 
+
     report = conn.execute("""
         SELECT *
         FROM reports
@@ -445,10 +537,13 @@ def report_details(report_id):
         report_id,
     )).fetchone()
 
+
     conn.close()
+
 
     if report is None:
         return "Report not found", 404
+
 
     return render_template(
         "report.html",
@@ -465,16 +560,19 @@ def student_dashboard():
 
     conn = get_db()
 
+
     reports = conn.execute("""
         SELECT *
         FROM reports
         ORDER BY id DESC
     """).fetchall()
 
+
     total = conn.execute("""
         SELECT COUNT(*)
         FROM reports
     """).fetchone()[0]
+
 
     in_progress = conn.execute("""
         SELECT COUNT(*)
@@ -482,13 +580,16 @@ def student_dashboard():
         WHERE status = 'In Progress'
     """).fetchone()[0]
 
+
     resolved = conn.execute("""
         SELECT COUNT(*)
         FROM reports
         WHERE status = 'Resolved'
     """).fetchone()[0]
 
+
     conn.close()
+
 
     return render_template(
         "student.html",
@@ -526,12 +627,14 @@ def track_report():
         ""
     ).strip()
 
+
     if not report_id:
 
         return render_template(
             "track.html",
             error="Please enter Report ID."
         )
+
 
     try:
 
@@ -544,7 +647,9 @@ def track_report():
             error="Please enter a valid Report ID."
         )
 
+
     conn = get_db()
+
 
     report = conn.execute("""
         SELECT *
@@ -554,7 +659,9 @@ def track_report():
         report_id,
     )).fetchone()
 
+
     conn.close()
+
 
     if report is None:
 
@@ -562,6 +669,7 @@ def track_report():
             "track.html",
             error="Report not found."
         )
+
 
     return render_template(
         "track.html",
@@ -572,6 +680,9 @@ def track_report():
 # =========================================================
 # START APPLICATION
 # =========================================================
+
+init_db()
+
 
 if __name__ == "__main__":
 
