@@ -1,0 +1,275 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare AI - Report Details</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 35px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+        }
+
+        .report-id {
+            color: #2563eb;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .label {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 18px;
+            border-radius: 25px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 18px 5%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        CampusCare AI
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+
+        <div class="report-id">
+
+            Report #{{ report["id"] }}
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="label">
+                Problem
+            </div>
+
+            <div class="value">
+
+                {{ report["problem"] }}
+
+            </div>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="label">
+                Location
+            </div>
+
+            <div class="value">
+
+                {{ report["location"] }}
+
+            </div>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="label">
+                Category
+            </div>
+
+            <div class="value">
+
+                {{ report["category"] }}
+
+            </div>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="label">
+                Priority
+            </div>
+
+            <div class="value">
+
+                {{ report["priority"] }}
+
+            </div>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="label">
+                Assigned Department
+            </div>
+
+            <div class="value">
+
+                {{ report["department"] }}
+
+            </div>
+
+        </div>
+
+
+        <div class="status">
+
+            Current Status:
+            {{ report["status"] }}
+
+        </div>
+
+
+        <div class="buttons">
+
+            <a
+                href="/track"
+                class="btn primary"
+            >
+                Track Report
+            </a>
+
+
+            <a
+                href="/student"
+                class="btn secondary"
+            >
+                Student Dashboard
+            </a>
+
+
+            <a
+                href="/"
+                class="btn secondary"
+            >
+                Home
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
+```

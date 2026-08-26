@@ -1,0 +1,447 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare AI | Smart Campus Problem Management</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            color: #172033;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0, transparent 32%),
+                radial-gradient(circle at top right, #e0e7ff 0, transparent 30%),
+                #f8fafc;
+        }
+
+        /* NAVBAR */
+        nav {
+            height: 72px;
+            padding: 0 7%;
+            background: rgba(255,255,255,0.94);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .logo span {
+            color: #0f172a;
+        }
+
+        nav div:last-child {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 75px 20px 45px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 17px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 62px);
+            line-height: 1.1;
+            margin-bottom: 18px;
+            color: #2563eb;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #0f172a;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: auto;
+            color: #64748b;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* FORM */
+        .container {
+            width: 92%;
+            max-width: 760px;
+            margin: 10px auto 65px;
+        }
+
+        .form-card {
+            background: rgba(255,255,255,0.98);
+            padding: 38px;
+            border-radius: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 18px 50px rgba(15,23,42,0.10);
+        }
+
+        .form-card h2 {
+            text-align: center;
+            font-size: 25px;
+            margin-bottom: 9px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 9px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 14px 15px;
+            margin-bottom: 21px;
+            outline: none;
+            font-family: inherit;
+            font-size: 15px;
+            color: #0f172a;
+            background: #f8fafc;
+            transition: 0.2s;
+        }
+
+        textarea {
+            min-height: 145px;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input:focus {
+            background: white;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px #dbeafe;
+        }
+
+        textarea::placeholder,
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(37,99,235,0.32);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* FEATURES */
+        .features {
+            width: 92%;
+            max-width: 1100px;
+            margin: 0 auto 70px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature {
+            background: white;
+            padding: 30px 24px;
+            text-align: center;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.06);
+            transition: 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.10);
+        }
+
+        .feature-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            font-size: 28px;
+        }
+
+        .feature h3 {
+            color: #0f172a;
+            margin-bottom: 9px;
+            font-size: 18px;
+        }
+
+        .feature p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        footer p:first-child {
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        footer p:last-child {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+            nav {
+                height: auto;
+                min-height: 70px;
+                padding: 15px 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            nav div:last-child {
+                gap: 14px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 55px 18px 35px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            CampusCare <span>AI</span>
+        </div>
+
+        <div>
+            <a href="/">Home</a>
+            <a href="/track">Track Report</a>
+            <a href="/admin">Admin</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="badge">
+            🤖 AI Powered Campus Support
+        </div>
+
+        <h1>
+            CampusCare <span>AI</span>
+        </h1>
+
+        <p>
+            Report campus problems easily. Our AI analyzes your complaint,
+            identifies the priority and automatically assigns it to the
+            right department.
+        </p>
+
+    </section>
+
+    <!-- REPORT FORM -->
+    <div class="container">
+
+        <div class="form-card">
+
+            <h2>Report a Campus Problem</h2>
+
+            <p class="subtitle">
+                Tell us what happened and where it happened.
+            </p>
+
+            <form action="/analyze" method="POST">
+
+                <label for="problem">
+                    Describe the Problem
+                </label>
+
+                <textarea
+                    id="problem"
+                    name="problem"
+                    placeholder="Example: Water leakage in Room 204..."
+                    required
+                ></textarea>
+
+                <label for="location">
+                    Location
+                </label>
+
+                <input
+                    id="location"
+                    type="text"
+                    name="location"
+                    placeholder="Example: Block A - Room 204"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    🔍 Analyze &amp; Submit Report
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">🤖</div>
+
+            <h3>AI Analysis</h3>
+
+            <p>
+                Automatically identifies the category and priority
+                of your complaint.
+            </p>
+
+        </div>
+
+        <div class="feature">
+
+            <div class="feature-icon">🎯</div>
+
+            <h3>Smart Assignment</h3>
+
+            <p>
+                Your complaint is assigned to the appropriate
+                campus department.
+            </p>
+
+        </div>
+
+        <div class="feature">
+
+            <div class="feature-icon">📍</div>
+
+            <h3>Track Your Report</h3>
+
+            <p>
+                Use your Report ID to check the current status anytime.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>© 2026 CampusCare AI</p>
+
+        <p>Smart Campus Problem Management System</p>
+
+    </footer>
+
+</body>
+</html>
+```

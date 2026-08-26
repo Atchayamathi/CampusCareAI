@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare AI - Track Report</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f1f5f9;
+
+            color: #1e293b;
+
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+
+            background: #1e40af;
+
+            color: white;
+
+            padding: 20px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* MAIN */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 850px;
+
+            margin: 50px auto;
+
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .title h1 {
+
+            color: #1e40af;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .title p {
+
+            color: #64748b;
+
+        }
+
+
+        /* SEARCH CARD */
+
+        .search-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .search-card label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .search-box {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .search-box input {
+
+            flex: 1;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+        }
+
+
+        .search-box button {
+
+            padding: 13px 22px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .search-box button:hover {
+
+            background: #1d4ed8;
+
+        }
+
+
+        /* REPORT CARD */
+
+        .report-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+        }
+
+
+        .report-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .report-header h2 {
+
+            margin: 0;
+
+            color: #1e40af;
+
+        }
+
+
+        .report-id {
+
+            background: #dbeafe;
+
+            color: #1e40af;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* DETAILS */
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .detail {
+
+            background: #f8fafc;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+        }
+
+
+        .detail.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .label {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .value {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* PRIORITY */
+
+        .priority-high {
+
+            color: #dc2626;
+
+        }
+
+
+        .priority-medium {
+
+            color: #d97706;
+
+        }
+
+
+        .priority-low {
+
+            color: #16a34a;
+
+        }
+
+
+        .priority-critical {
+
+            color: #991b1b;
+
+        }
+
+
+        /* STATUS */
+
+        .status-box {
+
+            margin-top: 35px;
+
+        }
+
+
+        .status-box h3 {
+
+            color: #1e40af;
+
+        }
+
+
+        .timeline {
+
+            position: relative;
+
+            margin-top: 25px;
+
+        }
+
+
+        .timeline::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 18px;
+
+            top: 10px;
+
+            bottom: 10px;
+
+            width: 3px;
+
+            background: #cbd5e1;
+
+        }
+
+
+        .step {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            margin: 25px 0;
+
+        }
+
+
+        .circle {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 50%;
+
+            background: #cbd5e1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            color: white;
+
+            font-weight: bold;
+
+            z-index: 1;
+
+        }
+
+
+        .step-content {
+
+            margin-left: 18px;
+
+        }
+
+
+        .step-title {
+
+            font-weight: bold;
+
+        }
+
+
+        .step-subtitle {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-top: 4px;
+
+        }
+
+
+        .completed .circle {
+
+            background: #16a34a;
+
+        }
+
+
+        .current .circle {
+
+            background: #2563eb;
+
+        }
+
+
+        .completed .step-title {
+
+            color: #16a34a;
+
+        }
+
+
+        .current .step-title {
+
+            color: #2563eb;
+
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-top: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* BUTTONS */
+
+        .buttons {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            gap: 12px;
+
+        }
+
+
+        .btn {
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .home {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .admin {
+
+            background: #e2e8f0;
+
+            color: #1e293b;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .search-box {
+
+                flex-direction: column;
+
+            }
+
+
+            .details {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .detail.full {
+
+                grid-column: auto;
+
+            }
+
+
+            .report-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+            }
+
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+
+    <div class="logo">
+
+        CampusCare AI
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/admin">
+            Admin
+        </a>
+
+    </div>
+
+
+</nav>
+
+
+
+<div class="container">
+
+
+    <!-- TITLE -->
+
+    <div class="title">
+
+        <h1>
+            Track Your Report
+        </h1>
+
+        <p>
+            Enter your report ID to check the current status.
+        </p>
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <div class="search-card">
+
+
+        <form
+            action="/track_report"
+            method="POST"
+        >
+
+
+            <label>
+                Report ID
+            </label>
+
+
+            <div class="search-box">
+
+
+                <input
+
+                    type="number"
+
+                    name="report_id"
+
+                    placeholder="Example: 7"
+
+                    min="1"
+
+                    required
+
+                >
+
+
+                <button type="submit">
+
+                    Track Report
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <!-- REPORT RESULT -->
+
+    {% if report %}
+
+
+    <div class="report-card">
+
+
+        <div class="report-header">
+
+
+            <h2>
+                Report Details
+            </h2>
+
+
+            <div class="report-id">
+
+                #{{ report["id"] }}
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="details">
+
+
+            <div class="detail full">
+
+                <div class="label">
+                    Problem
+                </div>
+
+                <div class="value">
+
+                    {{ report["problem"] }}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="detail full">
+
+                <div class="label">
+                    Location
+                </div>
+
+                <div class="value">
+
+                    {{ report["location"] }}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Category
+                </div>
+
+                <div class="value">
+
+                    {{ report["category"] }}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Priority
+                </div>
+
+
+                {% if report["priority"] == "CRITICAL" %}
+
+                    <div class="value priority-critical">
+
+                        {{ report["priority"] }}
+
+                    </div>
+
+
+                {% elif report["priority"] == "HIGH" %}
+
+                    <div class="value priority-high">
+
+                        {{ report["priority"] }}
+
+                    </div>
+
+
+                {% elif report["priority"] == "MEDIUM" %}
+
+                    <div class="value priority-medium">
+
+                        {{ report["priority"] }}
+
+                    </div>
+
+
+                {% else %}
+
+                    <div class="value priority-low">
+
+                        {{ report["priority"] }}
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <div class="detail full">
+
+                <div class="label">
+                    Assigned Department
+                </div>
+
+                <div class="value">
+
+                    {{ report["department"] }}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="status-box">
+
+
+            <h3>
+                Report Status
+            </h3>
+
+
+            <div class="timeline">
+
+
+                <!-- SUBMITTED -->
+
+                <div class="step completed">
+
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+
+                    <div class="step-content">
+
+                        <div class="step-title">
+                            Report Submitted
+                        </div>
+
+                        <div class="step-subtitle">
+                            Your complaint has been received.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REVIEW -->
+
+                <div class="step
+
+                    {% if report['status'] in ['In Progress', 'Resolved'] %}
+                        completed
+                    {% elif report['status'] == 'Pending' %}
+                        current
+                    {% endif %}"
+                >
+
+
+                    <div class="circle">
+
+                        {% if report["status"] in ["In Progress", "Resolved"] %}
+
+                            ✓
+
+                        {% else %}
+
+                            2
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="step-content">
+
+                        <div class="step-title">
+                            Under Review
+                        </div>
+
+                        <div class="step-subtitle">
+                            Your report is being reviewed.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- IN PROGRESS -->
+
+                <div class="step
+
+                    {% if report['status'] == 'Resolved' %}
+                        completed
+                    {% elif report['status'] == 'In Progress' %}
+                        current
+                    {% endif %}"
+                >
+
+
+                    <div class="circle">
+
+                        {% if report["status"] == "Resolved" %}
+
+                            ✓
+
+                        {% else %}
+
+                            3
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="step-content">
+
+                        <div class="step-title">
+                            In Progress
+                        </div>
+
+                        <div class="step-subtitle">
+                            Maintenance team is working on it.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- RESOLVED -->
+
+                <div class="step
+
+                    {% if report['status'] == 'Resolved' %}
+                        completed
+                    {% endif %}"
+                >
+
+
+                    <div class="circle">
+
+                        {% if report["status"] == "Resolved" %}
+
+                            ✓
+
+                        {% else %}
+
+                            4
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="step-content">
+
+                        <div class="step-title">
+                            Resolved
+                        </div>
+
+                        <div class="step-subtitle">
+                            The issue has been resolved.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            <a
+                href="/"
+                class="btn home"
+            >
+                Report Another Problem
+            </a>
+
+
+            <a
+                href="/admin"
+                class="btn admin"
+            >
+                Admin Dashboard
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+    {% endif %}
+
+
+
+</div>
+
+
+</body>
+
+</html>
