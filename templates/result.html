@@ -5,8 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CampusCare AI - Analysis Result</title>
 
@@ -95,6 +94,7 @@
 
         .value {
             font-size: 17px;
+            line-height: 1.6;
         }
 
         .analysis {
@@ -136,6 +136,22 @@
             color: #16a34a;
         }
 
+        /* RECOMMENDED SOLUTION */
+
+        .solution {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+        }
+
+        .solution h2 {
+            color: #1d4ed8;
+        }
+
+        .solution-text {
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
         .buttons {
             margin-top: 30px;
             display: grid;
@@ -171,6 +187,34 @@
             color: #64748b;
         }
 
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .navbar a {
+                margin-left: 8px;
+                margin-right: 8px;
+            }
+
+            .container {
+                margin: 25px auto;
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .report-id {
+                font-size: 22px;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -178,6 +222,10 @@
 
 <body>
 
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <nav class="navbar">
 
@@ -204,11 +252,16 @@
 </nav>
 
 
-<div class="container">
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
 
+<div class="container">
 
     <div class="card">
 
+
+        <!-- SUCCESS MESSAGE -->
 
         <div class="success">
 
@@ -217,10 +270,14 @@
         </div>
 
 
+        <!-- TITLE -->
+
         <h1>
             Analysis Result
         </h1>
 
+
+        <!-- REPORT ID -->
 
         <div class="report-id">
 
@@ -228,6 +285,10 @@
 
         </div>
 
+
+        <!-- =================================================
+             PROBLEM
+        ================================================== -->
 
         <div class="section">
 
@@ -244,6 +305,10 @@
         </div>
 
 
+        <!-- =================================================
+             LOCATION
+        ================================================== -->
+
         <div class="section">
 
             <h2>
@@ -259,6 +324,10 @@
         </div>
 
 
+        <!-- =================================================
+             AI ANALYSIS
+        ================================================== -->
+
         <div class="section">
 
             <h2>
@@ -268,6 +337,8 @@
 
             <div class="analysis">
 
+
+                <!-- CATEGORY -->
 
                 <div class="analysis-item">
 
@@ -280,6 +351,8 @@
                 </div>
 
 
+                <!-- PRIORITY -->
+
                 <div class="analysis-item">
 
                     <strong>
@@ -287,15 +360,21 @@
                     </strong>
 
                     <span class="priority
+
                     {% if priority == 'CRITICAL' %}
                         critical
+
                     {% elif priority == 'HIGH' %}
                         high
+
                     {% elif priority == 'MEDIUM' %}
                         medium
+
                     {% else %}
                         low
+
                     {% endif %}
+
                     ">
 
                         {{ priority }}
@@ -304,6 +383,8 @@
 
                 </div>
 
+
+                <!-- DEPARTMENT -->
 
                 <div class="analysis-item">
 
@@ -321,13 +402,39 @@
         </div>
 
 
+        <!-- =================================================
+             RECOMMENDED SOLUTION
+        ================================================== -->
+
+        <div class="section solution">
+
+            <h2>
+                💡 Recommended Solution
+            </h2>
+
+            <div class="solution-text">
+
+                {{ solution }}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
+
         <div class="buttons">
+
 
             <a
                 class="btn primary"
                 href="/track"
             >
+
                 Track This Report
+
             </a>
 
 
@@ -335,8 +442,11 @@
                 class="btn secondary"
                 href="/"
             >
+
                 Report Another Problem
+
             </a>
+
 
         </div>
 
@@ -345,6 +455,10 @@
 
 </div>
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
